@@ -35,14 +35,14 @@ const Navbar = () => {
         justifyContent: 'center'
       }}
     >
-      <Container maxWidth="md" disableGutters sx={{ px: 2 }}>
-        <Toolbar disableGutters sx={{ justifyContent: 'space-between', height: 64, gap: 2 }}>
+      <Container maxWidth="md" disableGutters sx={{ px: { xs: 1.5, sm: 2 } }}>
+        <Toolbar disableGutters sx={{ justifyContent: 'space-between', height: 64, gap: { xs: 1, sm: 2 } }}>
           <Box
             onClick={() => navigate('/')}
             sx={{
               display: 'flex',
               alignItems: 'center',
-              gap: 1.5,
+              gap: 1.2,
               cursor: 'pointer',
               minWidth: 'fit-content'
             }}
@@ -55,7 +55,8 @@ const Navbar = () => {
                 backgroundColor: '#6366F1',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                flexShrink: 0
               }}
             >
               <PublicIcon sx={{ color: '#FFFFFF', fontSize: 20 }} />
@@ -80,27 +81,28 @@ const Navbar = () => {
               alignItems: 'center',
               backgroundColor: '#F1F5F9',
               borderRadius: '24px',
-              px: '16px',
-              py: '6px',
+              px: { xs: '12px', sm: '16px' },
+              py: '5px',
               maxWidth: 440,
-              width: '100%'
+              width: '100%',
+              flex: { xs: 1, sm: 'none' }
             }}
           >
-            <SearchRoundedIcon sx={{ color: '#9CA3AF', fontSize: 20, mr: 1 }} />
+            <SearchRoundedIcon sx={{ color: '#9CA3AF', fontSize: 18, mr: 0.8, flexShrink: 0 }} />
             <InputBase
-              placeholder="Search TaskPlanet..."
+              placeholder="Search..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               sx={{
-                fontSize: '14px',
+                fontSize: '13px',
                 color: '#111827',
                 width: '100%'
               }}
             />
           </Box>
 
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, minWidth: 'fit-content' }}>
-            <IconButton sx={{ color: '#4B5563' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 0.5, sm: 1 }, minWidth: 'fit-content', flexShrink: 0 }}>
+            <IconButton sx={{ color: '#4B5563', display: { xs: 'none', sm: 'inline-flex' } }}>
               <NotificationsNoneRoundedIcon fontSize="small" />
             </IconButton>
 
@@ -108,8 +110,8 @@ const Navbar = () => {
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <Avatar
                   sx={{
-                    width: 36,
-                    height: 36,
+                    width: 34,
+                    height: 34,
                     bgcolor: '#6366F1',
                     fontSize: 14,
                     fontWeight: 600,
@@ -135,7 +137,7 @@ const Navbar = () => {
             <IconButton
               onClick={handleLogout}
               title="Logout"
-              sx={{ color: '#6B7280' }}
+              sx={{ color: '#6B7280', p: 1 }}
             >
               <LogoutRoundedIcon fontSize="small" />
             </IconButton>

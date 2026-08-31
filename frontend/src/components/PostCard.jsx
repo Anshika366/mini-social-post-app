@@ -286,7 +286,7 @@ const PostCard = ({ post, onPostUpdated, onPostDeleted, onNotification }) => {
             {formatRelativeTime(post.createdAt)}
           </Typography>
         }
-        sx={{ p: 2, pb: 1 }}
+        sx={{ p: { xs: 1.5, sm: 2 }, pb: 1 }}
       />
 
       <Menu
@@ -345,7 +345,7 @@ const PostCard = ({ post, onPostUpdated, onPostDeleted, onNotification }) => {
       </Menu>
 
       {post.text && (
-        <CardContent sx={{ px: 2, pt: 0.5, pb: 1.5, mb: post.image ? 1.5 : 0 }}>
+        <CardContent sx={{ px: { xs: 1.5, sm: 2 }, pt: 0.5, pb: 1.5, mb: post.image ? 1.5 : 0 }}>
           <Typography
             variant="body1"
             sx={{
@@ -361,7 +361,7 @@ const PostCard = ({ post, onPostUpdated, onPostDeleted, onNotification }) => {
       )}
 
       {post.image && (
-        <Box sx={{ px: 2, mb: 1.5 }}>
+        <Box sx={{ px: { xs: 1.5, sm: 2 }, mb: 1.5 }}>
           <CardMedia
             component="img"
             image={getImageUrl(post.image)}
@@ -369,7 +369,7 @@ const PostCard = ({ post, onPostUpdated, onPostDeleted, onNotification }) => {
             onClick={() => setIsFullscreenImageOpen(true)}
             sx={{
               borderRadius: '14px',
-              maxHeight: 380,
+              maxHeight: { xs: 300, sm: 380 },
               objectFit: 'cover',
               width: '100%',
               backgroundColor: '#FAFAFC',
@@ -382,13 +382,15 @@ const PostCard = ({ post, onPostUpdated, onPostDeleted, onNotification }) => {
       <CardActions
         disableSpacing
         sx={{
-          px: 2,
+          px: { xs: 1.5, sm: 2 },
           py: 1,
           borderTop: '1px solid #E5E7EB',
-          justify: 'space-between'
+          justify: 'space-between',
+          flexWrap: 'wrap',
+          gap: 0.5
         }}
       >
-        <Box sx={{ display: 'flex', gap: 1 }}>
+        <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
           <Button
             size="small"
             onClick={handleToggleLike}
@@ -405,8 +407,8 @@ const PostCard = ({ post, onPostUpdated, onPostDeleted, onNotification }) => {
               textTransform: 'none',
               fontWeight: 600,
               color: isLiked ? '#EF4444' : '#111827',
-              px: 1.5,
-              fontSize: '14px'
+              px: { xs: 1, sm: 1.5 },
+              fontSize: '13px'
             }}
           >
             {likesCount} Likes
@@ -421,8 +423,8 @@ const PostCard = ({ post, onPostUpdated, onPostDeleted, onNotification }) => {
               textTransform: 'none',
               fontWeight: 600,
               color: showComments ? '#4F46E5' : '#4B5563',
-              px: 1.5,
-              fontSize: '14px'
+              px: { xs: 1, sm: 1.5 },
+              fontSize: '13px'
             }}
           >
             {commentsCount} Comments
@@ -435,7 +437,7 @@ const PostCard = ({ post, onPostUpdated, onPostDeleted, onNotification }) => {
       </CardActions>
 
       <Collapse in={showComments} timeout={250}>
-        <Box sx={{ px: 2, pb: 2 }}>
+        <Box sx={{ px: { xs: 1.5, sm: 2 }, pb: 2 }}>
           <CommentSection
             postId={post._id}
             comments={post.comments || []}
