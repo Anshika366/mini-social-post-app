@@ -1,20 +1,27 @@
-# TaskPlanet Social Feed Clone
+# Mini Social Post App
 
-A production-ready, full-stack MERN (MongoDB, Express.js, React.js, Node.js) Social Feed application built from scratch. Inspired by the **TaskPlanet Android App Social Page**, this project delivers a premium mobile-first community feed experience with rounded cards, soft shadows, text/image post composer, real-time likes, nested comments, owner post editing/deletion, JWT authentication, and pagination.
+A production-ready full-stack MERN social feed application inspired by the TaskPlanet Social Page, featuring JWT authentication, image uploads, likes, comments, and a responsive Material UI interface.
+
+![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=black)
+![Node.js](https://img.shields.io/badge/Node.js-Express-339933?style=flat-square&logo=nodedotjs&logoColor=white)
+![Express](https://img.shields.io/badge/Express-Backend-000000?style=flat-square&logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?style=flat-square&logo=mongodb&logoColor=white)
+![Material UI](https://img.shields.io/badge/Material--UI-MUI-007FFF?style=flat-square&logo=mui&logoColor=white)
+![JWT](https://img.shields.io/badge/Auth-JWT-000000?style=flat-square&logo=jsonwebtokens&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-Frontend-646CFF?style=flat-square&logo=vite&logoColor=white)
 
 ---
 
-## Key Features
+## Live Demo
 
-- **JWT Authentication**: User Signup and Login with bcrypt password hashing and session persistence across page refreshes.
-- **TaskPlanet Inspired UI**: Mobile-first responsive layout (max-width 620px desktop feed container), 16px rounded white cards, indigo accents, and clean typography.
-- **Rich Post Composer**: Support for text-only, image-only, or text+image posts with instant dropzone preview and remove capability.
-- **File Uploads**: Image processing powered by `multer` with unique filename generation and static file serving.
-- **Realtime Interaction**: Toggle post likes and expand embedded comment sections with instant state updates.
-- **Owner Post Actions**: Contextual 3-dot menu allowing post owners to edit text/media or delete posts with Material UI confirmation dialogs.
-- **Feed Pagination**: Efficient backend pagination (`GET /api/posts?page=1&limit=10`) with a frontend "Load More" button.
-- **Strict 2 Collections Architecture**: Optimized MongoDB Atlas schema using only `users` and `posts` collections.
-- **Delightful UX**: Material UI skeleton loading states, empty feed illustration, snackbar notifications, and smooth hover transitions.
+- **Frontend**: [Coming Soon]
+- **Backend**: [Coming Soon]
+
+---
+
+## Overview
+
+**Mini Social Post App** is an original full-stack web application designed and built for the 3W Full Stack Internship Assignment. Inspired by the clean user experience of the **TaskPlanet Android App Social Page**, it delivers a modern community feed experience with rounded cards, soft drop-shadows, image uploads, instant like triggers, embedded comments, owner-based edit/delete capabilities, and secure JWT authentication.
 
 ---
 
@@ -22,24 +29,77 @@ A production-ready, full-stack MERN (MongoDB, Express.js, React.js, Node.js) Soc
 
 ### Frontend
 - **Framework**: React.js (Vite)
+- **UI Components**: Material UI (`@mui/material`, `@mui/icons-material`)
+- **HTTP Client**: Axios with Authorization Bearer interceptors
 - **Routing**: React Router DOM (v6)
-- **UI Components & Icons**: Material UI (`@mui/material`, `@mui/icons-material`, `@emotion/react`, `@emotion/styled`)
-- **HTTP Client**: Axios with Authorization Bearer Interceptors
-- **Typography & Styling**: Google Plus Jakarta Sans & Custom CSS (No Tailwind)
+- **Styling**: Material UI & Custom CSS (No Tailwind CSS)
 
 ### Backend
 - **Runtime**: Node.js & Express.js
-- **Database ORM**: Mongoose (MongoDB Atlas)
-- **Security**: bcryptjs & jsonwebtoken (JWT)
+- **Database**: MongoDB Atlas via Mongoose ORM
+- **Authentication**: JWT (`jsonwebtoken`) & Password Hashing (`bcryptjs`)
 - **File Uploads**: Multer
 - **Middleware**: CORS & Dotenv
+
+---
+
+## Core Features
+
+- **User Authentication**: Secure Signup and Login with bcrypt password hashing and persistent JWT sessions.
+- **Public Community Feed**: Paginated feed listing posts in reverse chronological order (newest first).
+- **Flexible Post Composer**: Create text-only, image-only, or text+image posts with real-time dropzone image thumbnail previews.
+- **Like Interaction**: Instant like/unlike toggle with animated state changes and real-time like counters.
+- **Nested Comments**: Expandable comments section on each post displaying commenter username, timestamp, and comment body.
+- **Owner Controls**: Contextual 3-dot menu enabling post creators to edit text/media or delete posts with confirmation dialogs.
+- **Data Integrity**: Usernames are stored directly within post likes and embedded comment sub-documents.
+- **Responsive Layout**: Mobile-first centered feed (max 620px width) optimized for mobile, tablet, and desktop screens.
+
+---
+
+## Database Architecture
+
+The application strictly uses **two MongoDB collections**:
+
+### 1. `users` Collection
+Stores user credentials and profile metadata.
+```json
+{
+  "_id": "ObjectId",
+  "username": "Anshika Pathak",
+  "email": "anshika@example.com",
+  "password": "hashed_bcrypt_password",
+  "createdAt": "ISODate"
+}
+```
+
+### 2. `posts` Collection
+Stores post content, liker usernames, and embedded comments.
+```json
+{
+  "_id": "ObjectId",
+  "user": "ObjectId(User)",
+  "text": "Finally set up the local dev environment!",
+  "image": "/uploads/1788186402790-swhcvd.png",
+  "likes": ["Anshika Pathak", "Rohan Sharma"],
+  "comments": [
+    {
+      "username": "Rohan Sharma",
+      "text": "Looks great! Ready to start!",
+      "createdAt": "ISODate"
+    }
+  ],
+  "createdAt": "ISODate"
+}
+```
+
+> **Note**: Comments are embedded directly inside post documents and likes store an array of usernames. No additional database collections exist.
 
 ---
 
 ## Folder Structure
 
 ```text
-taskplanet-social-clone/
+mini-social-post-app/
 ├── backend/
 │   ├── config/
 │   │   └── db.js
@@ -59,11 +119,9 @@ taskplanet-social-clone/
 │   │   └── .gitkeep
 │   ├── server.js
 │   ├── package.json
-│   ├── .env.example
-│   └── .env
+│   └── .env.example
 ├── frontend/
 │   ├── src/
-│   │   ├── assets/
 │   │   ├── components/
 │   │   │   ├── Navbar.jsx
 │   │   │   ├── PostCard.jsx
@@ -92,91 +150,41 @@ taskplanet-social-clone/
 └── README.md
 ```
 
----
-
-## Database Design
-
-The project strictly uses **two MongoDB collections**:
-
-### 1. `users` Collection
-| Field | Type | Options |
-|---|---|---|
-| `username` | String | Required, Trim |
-| `email` | String | Required, Unique, Lowercase |
-| `password` | String | Required (Hashed via bcryptjs) |
-| `createdAt` | Date | Auto Timestamps |
-
-### 2. `posts` Collection
-| Field | Type | Options |
-|---|---|---|
-| `user` | ObjectId | Ref to `User` collection |
-| `text` | String | Default `""` |
-| `image` | String | File path (`/uploads/...`) |
-| `likes` | Array of Strings | Usernames of likers |
-| `comments` | Array of Objects | Embedded `[{ username, text, createdAt }]` |
-| `createdAt` | Date | Auto Timestamps |
+> **Best Practice Note**: Create a local `.env` file inside `backend/` using `backend/.env.example` before starting the backend server.
 
 ---
 
-## API Endpoints Table
+## Environment Variables
 
-| Method | Endpoint | Protection | Description |
-|---|---|---|---|
-| `POST` | `/api/auth/signup` | Public | Register new user account |
-| `POST` | `/api/auth/login` | Public | Authenticate user & issue JWT |
-| `GET` | `/api/posts?page=1&limit=10` | Public | Fetch paginated posts (newest first) |
-| `POST` | `/api/posts` | Protected | Create post with optional image upload |
-| `GET` | `/api/posts/:id` | Public | Fetch single post by ID |
-| `PUT` | `/api/posts/:id` | Protected | Update post text/media (Owner only) |
-| `DELETE` | `/api/posts/:id` | Protected | Delete post (Owner only) |
-| `POST` | `/api/posts/:id/like` | Protected | Toggle post like/unlike state |
-| `POST` | `/api/posts/:id/comment` | Protected | Add new comment to post |
-
----
-
-## Standard API Response Format
-
-All backend endpoints return standardized JSON responses:
-
-```json
-{
-  "success": true,
-  "message": "Post created successfully",
-  "data": {}
-}
-```
-
----
-
-## Environment Variables Setup
-
-### Backend Environment Variables (`backend/.env`)
+### Backend (`backend/.env`)
 ```env
 PORT=5000
 MONGO_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/taskplanet_social?retryWrites=true&w=majority
 JWT_SECRET=your_super_secret_jwt_key
 ```
 
-### Frontend Environment Variables (`frontend/.env`)
+### Frontend (`frontend/.env`)
 ```env
 VITE_API_URL=http://localhost:5000
 ```
+
+> 🔒 **Security Notice**: Never commit `.env` files or expose sensitive database credentials in public repositories. `.env` is ignored via `.gitignore`.
 
 ---
 
 ## Local Installation & Setup
 
 ### Prerequisites
-- Node.js (v16+ or v18+)
-- MongoDB (Local instance or MongoDB Atlas cluster)
+- Node.js (v16.x or higher)
+- MongoDB Atlas cluster or local MongoDB instance
 
-### 1. Clone & Setup Backend
+### 1. Setup Backend
 ```bash
 cd backend
 npm install
 npm run dev
 ```
-Backend will start on `http://localhost:5000`.
+The backend server runs at `http://localhost:5000`.
 
 ### 2. Setup Frontend
 ```bash
@@ -184,33 +192,60 @@ cd ../frontend
 npm install
 npm run dev
 ```
-Frontend will launch on `http://localhost:3000`.
+The frontend runs on the Vite development server (typically `http://localhost:3000` or `http://localhost:5173`).
+
+---
+
+## API Documentation
+
+All API endpoints return standard JSON responses:
+```json
+{
+  "success": true,
+  "message": "Operation completed successfully",
+  "data": {}
+}
+```
+
+| Method | Endpoint | Access | Description |
+|---|---|---|---|
+| `POST` | `/api/auth/signup` | Public | Register new user account |
+| `POST` | `/api/auth/login` | Public | Authenticate user & receive JWT token |
+| `GET` | `/api/posts?page=1&limit=10` | Public | Fetch paginated feed (newest first) |
+| `POST` | `/api/posts` | Protected | Create post with text & optional image |
+| `GET` | `/api/posts/:id` | Public | Fetch single post details |
+| `PUT` | `/api/posts/:id` | Protected | Update post text/media (Owner only) |
+| `DELETE` | `/api/posts/:id` | Protected | Delete post (Owner only) |
+| `POST` | `/api/posts/:id/like` | Protected | Toggle post like/unlike state |
+| `POST` | `/api/posts/:id/comment` | Protected | Add comment to post |
+
+---
+
+## Screenshots
+
+- **Login Screen**: `[Insert Login Screenshot]`
+- **Signup Screen**: `[Insert Signup Screenshot]`
+- **Community Feed**: `[Insert Feed Screenshot]`
+- **Create Post Composer**: `[Insert Create Post Screenshot]`
+- **Comments Drawer**: `[Insert Comments Screenshot]`
+- **Mobile View**: `[Insert Mobile View Screenshot]`
 
 ---
 
 ## Deployment Guide
 
-### Backend Deployment on Render
+### Backend Deployment (Render)
+1. Push repository to GitHub.
+2. Create a new **Web Service** on Render pointing to the `backend` folder.
+3. Set **Build Command**: `npm install`
+4. Set **Start Command**: `node server.js`
+5. Configure environment variables (`PORT`, `MONGO_URI`, `JWT_SECRET`).
 
-1. Push code to GitHub repository.
-2. Log into [Render Dashboard](https://dashboard.render.com/) and create a **New Web Service**.
-3. Connect your GitHub repository and specify the **Root Directory** as `backend`.
-4. Set Build Command: `npm install`
-5. Set Start Command: `node server.js`
-6. Under **Environment Variables**, add:
-   - `PORT` = `5000`
-   - `MONGO_URI` = `<your_mongodb_atlas_uri>`
-   - `JWT_SECRET` = `<your_jwt_secret>`
-7. Deploy Web Service and copy your public Render backend URL.
-
-### Frontend Deployment on Vercel
-
-1. Log into [Vercel Dashboard](https://vercel.com/) and click **Add New Project**.
-2. Select your GitHub repository and set **Framework Preset** to `Vite`.
-3. Set **Root Directory** to `frontend`.
-4. Under **Environment Variables**, set:
-   - `VITE_API_URL` = `<your_deployed_render_backend_url>`
-5. Deploy project. Routing rules in `vercel.json` will automatically handle SPA client routing.
+### Frontend Deployment (Vercel)
+1. Connect repository on Vercel and set root directory to `frontend`.
+2. Framework preset: **Vite**.
+3. Configure environment variable: `VITE_API_URL` = `<your_render_backend_url>`.
+4. Deploy (`vercel.json` will automatically handle SPA client routing).
 
 ---
 
@@ -222,6 +257,6 @@ git branch -M main
 git add .
 git status
 git commit -m "Initial commit - Mini Social Post App"
-git remote add origin YOUR_GITHUB_REPOSITORY_URL
+git remote add origin https://github.com/Anshika366/mini-social-post-app.git
 git push -u origin main
 ```
